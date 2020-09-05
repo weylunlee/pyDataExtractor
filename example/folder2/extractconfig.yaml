@@ -1,5 +1,7 @@
+# template file name
 templateFilename: template.xlsx
 
+# list of extract details
 extractDetails:
   - {
     sourceFilename: LICENSE.txt,
