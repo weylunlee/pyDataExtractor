@@ -1,0 +1,5 @@
+#list of folders to process
+extractFolders:
+  - C:\Projects\pyDataExtractor\example\folder1\
+  - C:\Projects\pyDataExtractor\example\folder2\
+#  - C:\Projects\pyDataExtractor\example\folder3\

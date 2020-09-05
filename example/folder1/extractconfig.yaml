@@ -1,0 +1,33 @@
+templateFilename: template.xlsx
+
+extractDetails:
+  - {
+    sourceFilename: LICENSE.txt,
+    keyColStart: 4,
+    key: Copyright 2000-2018 JetBrains,
+    valueRowOffset: 2,
+    valueColStart: 47,
+    valueColLength: 4,
+    templateSheet: 1,
+    templateCell: B3
+  }
+  - {
+    sourceFilename: latimes county totals.csv,
+    keyColStart: 1,
+    key: "2020-01-31,San Francisco",
+    valueRowOffset: 0,
+    valueColStart: 26,
+    valueColLength: 2,
+    templateSheet: 1,
+    templateCell: C3
+  }
+  - {
+    sourceFilename: latimes county totals.csv,
+    keyColStart: 1,
+    key: "2020-01-31,San Francisco",
+    valueRowOffset: 0,
+    valueColStart: 26,
+    valueColLength: 2,
+    templateSheet: 2,
+    templateCell: B4
+  }
