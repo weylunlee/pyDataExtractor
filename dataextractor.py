@@ -51,8 +51,12 @@ def extract_value(extract_folder, extract_detail):
 
     # read lines until key is found
     found = False
-    for x in source_file:
+    while True:
         line = source_file.readline()
+
+        if not line:
+            break
+
         index = line.find(extract_detail['key'])
         if index != -1 and index == extract_detail['keyColStart'] - 1:
             found = True
@@ -67,6 +71,7 @@ def extract_value(extract_folder, extract_detail):
         line = source_file.readline()
 
     # line at this point should contain value
+    source_file.close()
     value = line[extract_detail['valueColStart'] - 1:
                  extract_detail['valueColStart'] - 1 + extract_detail['valueColLength']]
 
