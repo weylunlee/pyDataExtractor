@@ -1,14 +1,20 @@
-import yaml
-# import openpyxl
+import os
 import time
 
+import yaml
 
-# start by reading in the set of extract folders
+
+# start extract
 def extract():
-    with open('C:/Projects/pyDataExtractor/resources/config/appconfig.yaml') as app_config_file:
+    # read in the set of extract folders
+    with open(os.getcwd() + '\\appconfig.yaml') as app_config_file:
         extract_folders = yaml.full_load(app_config_file)
+
+        # loop and process each extract folder
         for extract_folder in extract_folders['extractFolders']:
             extract_set(extract_folder)
+
+    app_config_file.close()
 
 
 # process each extract set
@@ -19,25 +25,28 @@ def extract_set(extract_folder):
     with open(extract_folder + 'extractconfig.yaml') as set_config_file:
         extract_config = yaml.full_load(set_config_file)
 
-    workbook = get_template_workbook(extract_folder, extract_config["templateFilename"])
+    workbook = get_template_workbook(extract_folder, extract_config['templateFilename'])
 
     # loop through and process each extract detail
     for extract_detail in extract_config['extractDetails']:
+        # extract value
         value = extract_value(extract_folder, extract_detail)
 
         if value is None:
             print('ERROR trying to extract value from ')
             print(extract_detail)
 
-        set_value_to_template(workbook, extract_detail["templateSheet"], extract_detail["templateCell"], value)
+        # set value to workbook
+        set_value_to_template(workbook, extract_detail['templateSheet'], extract_detail['templateCell'], value)
 
     # save the workbook
-    write_template(workbook, extract_folder, extract_config["templateFilename"])
+    write_template(workbook, extract_folder, extract_config['templateFilename'])
 
 
 # write template
 def write_template(workbook, extract_folder, template_filename):
-    timestamp = time.strftime("%Y%m%d%H%M", time.localtime())
+    # write as a new file with timestamp
+    timestamp = time.strftime('%Y%m%d%H%M', time.localtime())
     filename = extract_folder + timestamp + '_' + template_filename
 
     workbook.save(filename)
@@ -57,6 +66,7 @@ def extract_value(extract_folder, extract_detail):
         if not line:
             break
 
+        # check if line contains the key
         index = line.find(extract_detail['key'])
         if index != -1 and index == extract_detail['keyColStart'] - 1:
             found = True
