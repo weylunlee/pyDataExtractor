@@ -68,7 +68,7 @@ class dataExtractor:
 
                     # set value to workbook
                     self.set_value_to_template(workbook, extract_detail['templateSheet'],
-                                          extract_detail['templateCell'], value)
+                                               extract_detail['templateCell'], value)
                 except SourceFileException:
                     print('ERROR trying to read source file ' + extract_folder + extract_detail['sourceFilename'])
                     error_count += 1
@@ -156,7 +156,7 @@ class dataExtractor:
 
 # main function
 def main():
-    obj = dataExtractor().extract()
+    dataExtractor().extract()
 
 
 # execute only if run as a script
