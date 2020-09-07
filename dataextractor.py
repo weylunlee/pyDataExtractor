@@ -20,11 +20,13 @@ class DataExtractor:
         else:
             # loop and process each extract folder
             for extract_folder in extract_folders['extractFolders']:
+                # process each extract folder by creating a new data set extractor instance, then calling extract
                 datasetextractor.DataSetExtractor(extract_folder).extract()
 
 
 # main function
 def main():
+    # start data extractor by calling static method extract
     DataExtractor.extract()
 
 

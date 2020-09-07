@@ -106,7 +106,7 @@ class DataSetExtractor:
             if not line:
                 break
 
-            # check if line contains the key
+            # check if line contains the key, subtract 1 since yaml configuration is 1 based
             index = line.find(extract_detail['key'])
             if index != -1 and index == extract_detail['keyColStart'] - 1:
                 found = True
@@ -120,8 +120,10 @@ class DataSetExtractor:
             for x in range(extract_detail['valueRowOffset']):
                 line = source_file.readline()
 
-            # line at this point should contain value
+            # line at this point should contain value, we can close the file
             source_file.close()
+
+            # use substring to extract the target value, taking into account 1 vs 0 based
             value = line[extract_detail['valueColStart'] - 1:
                          extract_detail['valueColStart'] - 1 + extract_detail['valueColLength']]
 
@@ -146,6 +148,7 @@ class DataSetExtractor:
     @staticmethod
     def __set_value_to_template(workbook, sheet_num, cell_address, value):
         try:
+            # subtract 1 due to 0 vs 1 base
             worksheet = workbook[workbook.sheetnames[sheet_num - 1]]
             worksheet[cell_address] = value
         except Exception:
